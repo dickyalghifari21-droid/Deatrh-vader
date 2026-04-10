@@ -239,10 +239,10 @@ bot.command('update', async (ctx) => {
     if (ctx.from.id !== OWNER_ID) return;
 
     // Link Raw GitHub kamu
-    const URL_GITHUB = '';
+    const URL_GITHUB = 'https://raw.githubusercontent.com/dickyalghifari21-droid/Deatrh-vader/refs/heads/main/Dilz.js';
     
     // NAMA FILE YANG ADA DI PANEL (WAJIB SAMA DENGAN FILE UTAMA BOT)
-    const NAMA_FILE_BOT = 'index.js'; 
+    const NAMA_FILE_BOT = 'Dilz.js'; 
     const PATH_TUJUAN = path.join(__dirname, NAMA_FILE_BOT);
 
     try {
@@ -489,6 +489,7 @@ bot.action("owner_menu", async (ctx) => {
 • /addadmin
 • /deladmin
 • /Status
+• /update 
 • /addsender
 • /delsesi
 • /addprem 
@@ -607,6 +608,7 @@ bot.action("all_menu", async (ctx) => {
 • /addadmin
 • /deladmin
 • /Status
+• /update
 • /addsender
 • /delsesi
 • /addprem 
