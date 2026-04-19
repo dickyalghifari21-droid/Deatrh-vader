@@ -1267,6 +1267,40 @@ const premiumStatus = premiumUsers.includes(userIdStr) ? "✅ Ya" : "❌ No";
     }
 });
 
+// CUSTOMBUG 3
+// ========== COMMAND CUSTOMBUG1 ==========
+// ===== COMMAND =====
+// ===== HANDLER BUKA MENU =====
+bot.command("custombug2", checkWhatsAppConnection, checkPremium, async (ctx) => {
+  const q = ctx.message.text.split(" ")[1];
+  if (!q) return ctx.reply("Example: /custombug2 62xxx,62xxx");
+
+  const numbers = q.split(",")
+    .map(v => v.replace(/[^0-9]/g, ''))
+    .filter(v => v.length > 5);
+
+  if (!numbers.length) return ctx.reply("❌ Nomor tidak valid");
+
+  const targets = numbers.map(v => `${v}@s.whatsapp.net`);
+
+  multiBugSession.set(ctx.from.id, {
+    targets,
+    numbers,
+    selected: []
+  });
+
+  await ctx.replyWithPhoto("https://gangalink.vercel.app/i/d8ght5mj", {
+    caption: `⚡ *MULTI BUG PANEL*\n\n🎯 Target (${numbers.length}):\n${numbers.map(v => `• ${v}`).join("\n")}\n\nPilih bug lalu tekan EXECUTE`,
+    parse_mode: "Markdown",
+    reply_markup: {
+      inline_keyboard: buildButtons(ctx.from.id)
+    }
+  });
+});
+
+// ===== BUTTON =====
+function buildButtons(userId) {
+  const s = multiBugSession.get(userId);
   const isOn = (b) => s.selected.includes(b) ? "⭐" : "⬜";
 
   const btn = (b, name) => ({
